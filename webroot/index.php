@@ -34,8 +34,9 @@ $app->get('/all', function () {
             
         }
     }
-    
-    echo json_encode($output);
+    header("Access-Control-Allow-Origin: *");
+    header('Content-Type: application/json');
+    echo json_encode($output, JSON_NUMERIC_CHECK);exit();
 });
 
 $app->get('/currency/:currency', function ($currency) {
@@ -56,7 +57,9 @@ $app->get('/currency/:currency', function ($currency) {
         
         $rate = number_format(($currency_data->last * $start_price),8);
         $output = array("code" => $currency, "name" => $currencies->{$currency}, 'rate' => $rate);
-        echo json_encode($output);
+        header("Access-Control-Allow-Origin: *");
+        header('Content-Type: application/json');
+        echo json_encode($output, JSON_NUMERIC_CHECK);exit();
     }
     
 });
