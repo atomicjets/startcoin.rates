@@ -1,9 +1,8 @@
 <?php
 
 require '../vendor/autoload.php';
-ini_set('display_errors', '1');
-$app = new \Slim\Slim(array(
-        ));
+
+$app = new \Slim\Slim();
 
 $app->get('/', function () {
     echo "Usage: https://rates.startwallet.com/currency/CURRENCY or https://rates.startwallet.com/all";
@@ -22,6 +21,9 @@ $app->get('/all', function () {
     $currencies = json_decode($currencies);
 
 
+    if(empty($bitcoin_average_data)){
+        return json_encode(array());
+    }
     foreach ($bitcoin_average_data as $code => $currency) {
 
         if (isset($currencies->{$code})) {
